@@ -78,10 +78,13 @@ public class MainActivity extends AppCompatActivity {
                 switch (list.size() % 3){
                     case 0:
                         item.setSrc(R.drawable.a);
+                        break;
                     case 1:
                         item.setSrc(R.drawable.b);
+                        break;
                     case 2:
                         item.setSrc(R.drawable.c);
+                        break;
                 }
 
                 item.setName(name);
