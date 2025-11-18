@@ -1,8 +1,10 @@
 package com.seoul.myai;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,8 +19,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<DataItem> list = new ArrayList<>();
+
     RecyclerView recyclerView;
 
+    EditText editText;
+
+    Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.list);
 
+        editText = findViewById(R.id.editview);
+        addButton = findViewById(R.id.add_button);
 
-        ArrayList<DataItem> list = new ArrayList<>();
+
         DataItem item1 = new DataItem();
         item1.setSrc(R.drawable.a);
         item1.setName("연예인 1");
@@ -55,8 +64,38 @@ public class MainActivity extends AppCompatActivity {
         item3.setName("연예인 3");
         list.add(item3);
 
-
         GeminiAdapter geminiAdapter = new GeminiAdapter();
+
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editText.getText().toString();
+                Log.d("TEST","name " + name);
+                Log.d("TEST","2 " + list.size() % 3);
+
+                DataItem item = new DataItem();
+                switch (list.size() % 3){
+                    case 0:
+                        item.setSrc(R.drawable.a);
+                    case 1:
+                        item.setSrc(R.drawable.b);
+                    case 2:
+                        item.setSrc(R.drawable.c);
+                }
+
+                item.setName(name);
+                list.add(item);
+                geminiAdapter.setList(list);
+
+            }
+        });
+
+
+
+
+
+
         recyclerView.setAdapter(
                 geminiAdapter
         );
